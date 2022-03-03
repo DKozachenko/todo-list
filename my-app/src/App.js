@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useMemo, useState} from "react";
 import './App.css';
 import Todo from "./components/Todo/Todo";
 import ButtonAdd from "./components/ButtonAdd/ButtonAdd";
@@ -9,6 +9,13 @@ function App() {
     {number: 1, name: 'Buy bread'},
     {number: 2, name: 'Buy milk'},
   ])
+
+  let [query, setQuery] = useState('')
+
+  let searchTodos = useMemo(() => {
+      console.log(todos);
+      return todos.filter(todo => todo.name.toLowerCase().includes(query.toLowerCase()));
+  }, [query, todos])
 
   const addTodo = (todo) => {
     setTodos([...todos, todo]);
@@ -22,7 +29,6 @@ function App() {
 
   const doneTodo = (todo) => {
     let newTodos = todos.filter(t => t.number !== todo.number);
-    console.log(newTodos)
     for (let i = 0; i < newTodos.length; ++i) {
       newTodos[i].number = i + 1;
     }
@@ -39,10 +45,19 @@ function App() {
           </div>
         </div>
 
+        <div className="row mb-4">
+          <div className="col-12 d-flex justify-content-center align-items-center">
+            <p className="fs-4 me-3 mb-0">Search: </p>
+            <input type="text" className="form-control w-50" placeholder="Search..."
+              onChange={(e) => {setQuery(e.target.value)}}
+            />
+          </div>
+        </div>
+
         <div className="row">
           <div className="col-12 d-flex flex-column align-items-center">
             {
-              todos.map(todo => {
+              searchTodos.map(todo => {
                 return <Todo key={todo.number} todo={todo} done={doneTodo} change={changeTodo}/>
               })
             }
