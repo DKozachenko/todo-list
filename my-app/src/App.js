@@ -2,6 +2,9 @@ import React, {useMemo, useState} from "react";
 import './App.css';
 import Todo from "./components/Todo/Todo";
 import ButtonAdd from "./components/ButtonAdd/ButtonAdd";
+import Title from "./components/Title/Title";
+import Search from "./components/Search/Search";
+import Sort from "./components/Sort/Sort";
 
 
 function App() {
@@ -11,11 +14,19 @@ function App() {
   ])
 
   let [query, setQuery] = useState('')
+  let [sort, setSort] = useState('')
 
   let searchTodos = useMemo(() => {
-      console.log(todos);
       return todos.filter(todo => todo.name.toLowerCase().includes(query.toLowerCase()));
   }, [query, todos])
+
+  let sortAndSearchTodos = useMemo(() => {
+    if (sort) {
+      return [...searchTodos].sort((a, b) => a[sort].localeCompare(b[sort]));;
+    } else {
+      return searchTodos;
+    }
+  }, [searchTodos, sort])
 
   const addTodo = (todo) => {
     setTodos([...todos, todo]);
@@ -35,38 +46,23 @@ function App() {
     setTodos(newTodos);
   }
 
-
   return (
     <main className="p-4">
       <div className="container">
-        <div className="row mb-5">
-          <div className="col-12 text-center">
-            <h1 className="title">Todo list</h1>
-          </div>
-        </div>
-
-        <div className="row mb-4">
-          <div className="col-12 d-flex justify-content-center align-items-center">
-            <p className="fs-4 me-3 mb-0">Search: </p>
-            <input type="text" className="form-control w-50" placeholder="Search..."
-              onChange={(e) => {setQuery(e.target.value)}}
-            />
-          </div>
-        </div>
-
+        <Title/>
+        <Search setQuery={setQuery}/>
+        <Sort setSort={setSort}/>
         <div className="row">
           <div className="col-12 d-flex flex-column align-items-center">
             {
-              searchTodos.map(todo => {
+              sortAndSearchTodos.map(todo => {
                 return <Todo key={todo.number} todo={todo} done={doneTodo} change={changeTodo}/>
               })
             }
           </div>
         </div>
         <ButtonAdd add={addTodo} len={todos.length}/>
-
       </div>
-
     </main>
   );
 }
