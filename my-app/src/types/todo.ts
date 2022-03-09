@@ -7,12 +7,15 @@ export interface Todo {
 
 export interface TodoState {
     todos: Todo[],
+    doneTodos: number,
+    notDoneTodos: number
     limit: boolean | null
 }
 
 export enum TodoActions {
     ADD_TODO ='ADD_TODO',
-    CHANGE_LIMIT = 'CHANGE_LIMIT'
+    CHANGE_LIMIT = 'CHANGE_LIMIT',
+    DONE_TODO = 'DONE_LIMIT'
 }
 
 interface AddTodoAction {
@@ -25,5 +28,10 @@ interface ChangeLimitAction {
     payload: boolean | null
 }
 
+interface DoneTodoAction {
+    type: TodoActions.DONE_TODO,
+    payload: any[]
+}
 
-export type TodoAction = AddTodoAction | ChangeLimitAction
+
+export type TodoAction = AddTodoAction | ChangeLimitAction | DoneTodoAction

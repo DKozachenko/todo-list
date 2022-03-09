@@ -13,3 +13,9 @@ export const changeLimit = (limit: boolean | null) => {
     }
 }
 
+export const doneTodo = (todo: Todo) => {
+    return (dispatch: Dispatch<TodoAction>) => {
+        dispatch({type: TodoActions.DONE_TODO, payload: [todo, !todo.isDone]})
+    }
+}
+

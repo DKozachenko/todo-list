@@ -1,7 +1,10 @@
 import React from 'react';
 import {Todo} from "../../types/todo";
+import {useAction} from "../../hooks/useAction";
 
 const TodoItem = ({ todo }: {todo: Todo}) => {
+    const {doneTodo} = useAction()
+
     return (
         <div className="d-flex align-items-center w-50 border border-2 border-success mb-4 p-3">
             <div className="w-100 d-flex">
@@ -12,9 +15,15 @@ const TodoItem = ({ todo }: {todo: Todo}) => {
                 </div>
 
                 <div className="w-25 d-flex justify-content-end align-items-center">
-                    <button
-                        className="btn btn-success"
-                    >Done</button>
+                    <div className="form-check form-switch">
+                        <input className="form-check-input"
+                               type="checkbox"
+                               role="switch"
+                               id="flexSwitchCheckDefault"
+                               checked={todo.isDone}
+                               onChange={() => {doneTodo(todo)}}
+                        />
+                    </div>
                 </div>
             </div>
         </div>

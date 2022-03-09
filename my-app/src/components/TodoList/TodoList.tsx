@@ -13,7 +13,6 @@ const TodoList: React.FC = () => {
         <div className="row">
             <div className="col-12 d-flex flex-column align-items-center">
                 {todos.map((todo: Todo) => {
-                    console.log('redraw')
                     if (limit !== null) {
                         if (todo.isDone === limit) {
                             return <TodoItem key={todo.id} todo={todo}/>
