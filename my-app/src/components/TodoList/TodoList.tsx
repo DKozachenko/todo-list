@@ -1,7 +1,6 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {useTypedSelector} from "../../hooks/useTypedSelector";
 import {Todo} from "../../types/todo";
-import {useAction} from "../../hooks/useAction";
 import TodoItem from "../Todo/TodoItem";
 
 const TodoList: React.FC = () => {
@@ -21,7 +20,6 @@ const TodoList: React.FC = () => {
                     else {
                         return <TodoItem key={todo.id} todo={todo}/>
                     }
-
                 })}
             </div>
         </div>

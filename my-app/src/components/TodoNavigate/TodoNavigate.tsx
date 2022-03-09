@@ -1,8 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {useAction} from "../../hooks/useAction";
 import {useTypedSelector} from "../../hooks/useTypedSelector";
-import {doneTodo} from "../../store/action-creators/todo";
-
 const TodoNavigate = () => {
     const reducer = useTypedSelector(state => state.todoReducer)
     const allTodos = reducer.todos.length

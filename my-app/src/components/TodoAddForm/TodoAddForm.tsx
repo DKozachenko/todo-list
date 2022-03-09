@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, { useState} from 'react';
 import {useAction} from "../../hooks/useAction";
 import {Todo} from "../../types/todo";
 import {useTypedSelector} from "../../hooks/useTypedSelector";
