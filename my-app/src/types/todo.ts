@@ -10,6 +10,7 @@ export interface TodoState {
     doneTodos: Todo[],
     notDoneTodos: Todo[],
     currentTodos: Todo[],
+    currentTodosName: string,
 
     showModal: boolean,
 

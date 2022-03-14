@@ -5,6 +5,7 @@ const initialState: TodoState = {
     doneTodos: [],
     notDoneTodos: [],
     currentTodos: [],
+    currentTodosName: 'todos',
 
     showModal: false,
 
@@ -46,16 +47,20 @@ export const todoReducer = (state: TodoState = initialState, action: TodoAction)
             }
         case TodoActions.CHANGE_CURRENT_TODOS:
             let current: Todo[] = [];
+            let currentName: string = ''
             if (action.payload === 1) {
                 current = state.todos
+                currentName = 'todos'
             }
             if (action.payload === 2) {
                 current = state.doneTodos
+                currentName = 'doneTodos'
             }
             if (action.payload === 3) {
                 current = state.notDoneTodos
+                currentName = 'notDoneTodos'
             }
-            return {...state, currentTodos: current}
+            return {...state, currentTodos: current, currentTodosName: currentName}
         case TodoActions.SHOW_MODAL:
             return {...state, showModal: action.payload}
         case TodoActions.CHANGE_INPUT_NAME:
@@ -64,22 +69,23 @@ export const todoReducer = (state: TodoState = initialState, action: TodoAction)
             return {...state, inputDescription: action.payload}
         case TodoActions.CHANGE_SEARCH_QUERY:
             let query = action.payload
-            if (!query) {
-                if (state.currentTodos === state.doneTodos) {
-                    return {...state, searchQuery: query, currentTodos: state.doneTodos}
-                }
-                if (state.currentTodos === state.notDoneTodos) {
-                    return {...state, searchQuery: query, currentTodos: state.notDoneTodos}
-                }
+            let newCurrent: Todo[] = []
 
-                return {...state, searchQuery: query, currentTodos: state.todos}
-            } else {
-                let newCurrent: Todo[] = state.todos.filter((todo: Todo) => {
+            if (state.currentTodosName === 'doneTodos') {
+                newCurrent = state.doneTodos.filter((todo: Todo) => {
                     return todo.name.toLowerCase().includes(query.toLowerCase())
                 })
-
-                return {...state, searchQuery: query, currentTodos: newCurrent}
+            } else if (state.currentTodosName === 'notDoneTodos') {
+                newCurrent = state.notDoneTodos.filter((todo: Todo) => {
+                    return todo.name.toLowerCase().includes(query.toLowerCase())
+                })
+            } else {
+                newCurrent = state.todos.filter((todo: Todo) => {
+                    return todo.name.toLowerCase().includes(query.toLowerCase())
+                })
             }
+
+            return {...state, searchQuery: query, currentTodos: newCurrent}
         default:
             return state
     }
