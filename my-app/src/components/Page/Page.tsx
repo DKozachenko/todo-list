@@ -16,7 +16,6 @@ const Page = () => {
                 <Search/>
                 <TodoNavigate/>
                 <TodoList/>
-
                 {
                     showModal && <Modal/>
                 }
