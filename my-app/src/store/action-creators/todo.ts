@@ -19,3 +19,21 @@ export const doneTodo = (todo: Todo) => {
     }
 }
 
+export const changeShowModal = (show: boolean) => {
+    return (dispatch: Dispatch<TodoAction>) => {
+        dispatch({type: TodoActions.SHOW_MODAL, payload: show})
+    }
+}
+
+export const changeInputName = (newName: string) => {
+    return (dispatch: Dispatch<TodoAction>) => {
+        dispatch({type: TodoActions.CHANGE_INPUT_NAME, payload: newName})
+    }
+}
+
+export const changeInputDescription = (newDesc: string) => {
+    return (dispatch: Dispatch<TodoAction>) => {
+        dispatch({type: TodoActions.CHANGE_INPUT_DESCRIPTION, payload: newDesc})
+    }
+}
+

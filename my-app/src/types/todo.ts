@@ -9,13 +9,23 @@ export interface TodoState {
     todos: Todo[],
     doneTodos: number,
     notDoneTodos: number
-    limit: boolean | null
+    limit: boolean | null,
+
+    showModal: boolean,
+
+    inputName: string,
+    inputDescription: string
 }
 
 export enum TodoActions {
     ADD_TODO ='ADD_TODO',
     CHANGE_LIMIT = 'CHANGE_LIMIT',
-    DONE_TODO = 'DONE_LIMIT'
+    DONE_TODO = 'DONE_LIMIT',
+
+    SHOW_MODAL = 'SHOW_MODAL',
+
+    CHANGE_INPUT_NAME = 'CHANGE_INPUT_NAME',
+    CHANGE_INPUT_DESCRIPTION = 'CHANGE_INPUT_DESCRIPTION'
 }
 
 interface AddTodoAction {
@@ -33,5 +43,20 @@ interface DoneTodoAction {
     payload: any[]
 }
 
+interface ShowModalAction {
+    type: TodoActions.SHOW_MODAL,
+    payload: boolean
+}
 
-export type TodoAction = AddTodoAction | ChangeLimitAction | DoneTodoAction
+interface ChangeInputName {
+    type: TodoActions.CHANGE_INPUT_NAME,
+    payload: string
+}
+
+interface ChangeInputDescription {
+    type: TodoActions.CHANGE_INPUT_DESCRIPTION,
+    payload: string
+}
+
+
+export type TodoAction = AddTodoAction | ChangeLimitAction | DoneTodoAction | ShowModalAction | ChangeInputName | ChangeInputDescription

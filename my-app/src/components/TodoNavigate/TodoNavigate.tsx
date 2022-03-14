@@ -11,7 +11,7 @@ const TodoNavigate = () => {
 
 
     return (
-        <div className="row mb-2 d-flex justify-content-center">
+        <div className="row mb-4 d-flex justify-content-center">
             <div className="col-7">
                 <nav className="navbar navbar-light bg-light">
                     <form className="container justify-content-between">
@@ -19,19 +19,19 @@ const TodoNavigate = () => {
                                 type="button"
                                 onClick={() => {changeLimit(null)}}
                         >All todos
-                            <span className="ms-2 badge bg-secondary">{allTodos}</span>
+                            <span className="ms-2 badge bg-success">{allTodos}</span>
                         </button>
                         <button className="btn btn-outline-secondary me-2"
                                 type="button"
                                 onClick={() => {changeLimit(true)}}
                         >Done todos
-                            <span className="ms-2 badge bg-secondary">{doneTodos}</span>
+                            <span className="ms-2 badge bg-success">{doneTodos}</span>
                         </button>
                         <button className="btn btn-outline-secondary"
                                 type="button"
                                 onClick={() => {changeLimit(false)}}
                         >Not done todos
-                            <span className="ms-2 badge bg-secondary">{notDoneTodos}</span>
+                            <span className="ms-2 badge bg-success">{notDoneTodos}</span>
                         </button>
                     </form>
                 </nav>

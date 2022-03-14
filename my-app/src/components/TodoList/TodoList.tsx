@@ -2,11 +2,13 @@ import React from 'react';
 import {useTypedSelector} from "../../hooks/useTypedSelector";
 import {Todo} from "../../types/todo";
 import TodoItem from "../Todo/TodoItem";
+import {useAction} from "../../hooks/useAction";
 
 const TodoList: React.FC = () => {
     const reducer = useTypedSelector(state => state.todoReducer)
     let todos = reducer.todos
     let limit = reducer.limit
+    let {changeShowModal} = useAction()
 
     return (
         <div className="row">
@@ -21,6 +23,11 @@ const TodoList: React.FC = () => {
                         return <TodoItem key={todo.id} todo={todo}/>
                     }
                 })}
+            </div>
+
+            <div className="col-12 d-flex justify-content-center">
+                <button className="btn btn-outline-success w-50"
+                        onClick={() => {changeShowModal(true)}}>Add</button>
             </div>
         </div>
     );
