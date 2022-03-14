@@ -3,12 +3,10 @@ import {useAction} from "../../hooks/useAction";
 import {useTypedSelector} from "../../hooks/useTypedSelector";
 const TodoNavigate = () => {
     const reducer = useTypedSelector(state => state.todoReducer)
-    const allTodos = reducer.todos.length
-    const doneTodos = reducer.doneTodos
-    const notDoneTodos = reducer.notDoneTodos
-    const {changeLimit} = useAction()
-
-
+    const allTodosCount = reducer.todos.length
+    const doneTodosCount = reducer.doneTodos.length
+    const notDoneTodosCount = reducer.notDoneTodos.length
+    const {changeCurrentTodos} = useAction()
 
     return (
         <div className="row mb-4 d-flex justify-content-center">
@@ -17,21 +15,21 @@ const TodoNavigate = () => {
                     <form className="container justify-content-between">
                         <button className="btn btn-outline-secondary me-2"
                                 type="button"
-                                onClick={() => {changeLimit(null)}}
+                                onClick={() => {changeCurrentTodos(1)}}
                         >All todos
-                            <span className="ms-2 badge bg-success">{allTodos}</span>
+                            <span className="ms-2 badge bg-success">{allTodosCount}</span>
                         </button>
                         <button className="btn btn-outline-secondary me-2"
                                 type="button"
-                                onClick={() => {changeLimit(true)}}
+                                onClick={() => {changeCurrentTodos(2)}}
                         >Done todos
-                            <span className="ms-2 badge bg-success">{doneTodos}</span>
+                            <span className="ms-2 badge bg-success">{doneTodosCount}</span>
                         </button>
                         <button className="btn btn-outline-secondary"
                                 type="button"
-                                onClick={() => {changeLimit(false)}}
+                                onClick={() => {changeCurrentTodos(3)}}
                         >Not done todos
-                            <span className="ms-2 badge bg-success">{notDoneTodos}</span>
+                            <span className="ms-2 badge bg-success">{notDoneTodosCount}</span>
                         </button>
                     </form>
                 </nav>

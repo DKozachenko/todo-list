@@ -2,9 +2,9 @@ import {Todo, TodoAction, TodoActions, TodoState} from "../../types/todo";
 
 const initialState: TodoState = {
     todos: [],
-    doneTodos: 0,
-    notDoneTodos: 0,
-    limit: null,
+    doneTodos: [],
+    notDoneTodos: [],
+    currentTodos: [],
 
     showModal: false,
 
@@ -16,16 +16,44 @@ export const todoReducer = (state: TodoState = initialState, action: TodoAction)
     switch (action.type) {
         case TodoActions.ADD_TODO:
             let todos: Todo[] = state.todos;
+            let notDoneTodos = state.notDoneTodos
             todos.push(action.payload);
-            return {...state, todos: todos, doneTodos: state.doneTodos, notDoneTodos: state.notDoneTodos + 1, limit: null}
-        case TodoActions.CHANGE_LIMIT:
-            let todos2: Todo[] = state.todos
-            return {...state, todos: todos2, doneTodos: state.doneTodos, notDoneTodos: state.notDoneTodos, limit: action.payload}
-        case TodoActions.DONE_TODO:
-            let todos3 = state.todos;
-            let todo: Todo = todos3.find(todo => todo === action.payload[0]) ?? {id: 0, name: '', description: '', isDone: false}
+            notDoneTodos.push(action.payload)
+            return {...state, todos: todos, currentTodos: todos, notDoneTodos: notDoneTodos}
+        case TodoActions.CHANGE_TODO_STATUS:
+            let todo: Todo = state.todos.find(todo => todo === action.payload[0]) ?? {id: 0, name: '', description: '', isDone: false}
             todo.isDone = action.payload[1]
-            return {...state, todos: todos3, doneTodos: action.payload[1] ? state.doneTodos + 1 : state.doneTodos - 1, notDoneTodos: action.payload[1] ? state.notDoneTodos - 1 : state.notDoneTodos + 1,limit: null}
+            if (todo.isDone) {
+                let doneTodos = state.doneTodos
+                doneTodos.push(todo)
+                let notDoneTodos = state.notDoneTodos.filter(t => t.id !== todo.id)
+                if (state.currentTodos === state.notDoneTodos) {
+                    return {...state, doneTodos: doneTodos, notDoneTodos: notDoneTodos, currentTodos: notDoneTodos}
+                }
+
+                return {...state, doneTodos: doneTodos, notDoneTodos: notDoneTodos}
+            } else {
+                let notDoneTodos = state.notDoneTodos
+                notDoneTodos.push(todo)
+                let doneTodos = state.doneTodos.filter(t => t.id !== todo.id)
+                if (state.currentTodos === state.doneTodos) {
+                    return {...state, doneTodos: doneTodos, notDoneTodos: notDoneTodos, currentTodos: doneTodos}
+                }
+
+                return {...state, doneTodos: doneTodos, notDoneTodos: notDoneTodos}
+            }
+        case TodoActions.CHANGE_CURRENT_TODOS:
+            let current: Todo[] = [];
+            if (action.payload === 1) {
+                current = state.todos
+            }
+            if (action.payload === 2) {
+                current = state.doneTodos
+            }
+            if (action.payload === 3) {
+                current = state.notDoneTodos
+            }
+            return {...state, currentTodos: current}
         case TodoActions.SHOW_MODAL:
             return {...state, showModal: action.payload}
         case TodoActions.CHANGE_INPUT_NAME:

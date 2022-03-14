@@ -3,7 +3,7 @@ import {Todo} from "../../types/todo";
 import {useAction} from "../../hooks/useAction";
 
 const TodoItem = ({ todo }: {todo: Todo}) => {
-    const {doneTodo} = useAction()
+    const {changeTodoStatus} = useAction()
 
     return (
         <div className="d-flex align-items-center w-50 border border-2 border-success mb-4 p-3">
@@ -21,7 +21,7 @@ const TodoItem = ({ todo }: {todo: Todo}) => {
                                role="switch"
                                id="flexSwitchCheckDefault"
                                checked={todo.isDone}
-                               onChange={() => {doneTodo(todo)}}
+                               onChange={() => {changeTodoStatus(todo)}}
                         />
                     </div>
                 </div>

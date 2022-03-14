@@ -1,6 +1,5 @@
-import React, { useState} from 'react';
+import React from 'react';
 import {useAction} from "../../hooks/useAction";
-import {Todo} from "../../types/todo";
 import {useTypedSelector} from "../../hooks/useTypedSelector";
 
 const TodoAddForm: React.FC = () => {
@@ -21,7 +20,7 @@ const TodoAddForm: React.FC = () => {
                     </div>
                     <div className="mb-3">
                         <label htmlFor="description" className="form-label">Description</label>
-                        <input type="text"
+                        <textarea
                                className="form-control"
                                id="description"
                                placeholder="Description..."

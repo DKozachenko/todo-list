@@ -7,15 +7,15 @@ export const addTodo = (todo: Todo) => {
     }
 }
 
-export const changeLimit = (limit: boolean | null) => {
+export const changeTodoStatus = (todo: Todo) => {
     return (dispatch: Dispatch<TodoAction>) => {
-        dispatch({type: TodoActions.CHANGE_LIMIT, payload: limit})
+        dispatch({type: TodoActions.CHANGE_TODO_STATUS, payload: [todo, !todo.isDone]})
     }
 }
 
-export const doneTodo = (todo: Todo) => {
+export const changeCurrentTodos = (code: number) => {
     return (dispatch: Dispatch<TodoAction>) => {
-        dispatch({type: TodoActions.DONE_TODO, payload: [todo, !todo.isDone]})
+        dispatch({type: TodoActions.CHANGE_CURRENT_TODOS, payload: code})
     }
 }
 
