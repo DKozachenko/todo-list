@@ -5,8 +5,15 @@ import TodoAddForm from "../TodoAddForm/TodoAddForm";
 import {Todo} from "../../types/todo";
 
 const Modal = () => {
-    const {showModal, inputName, inputDescription, todos} = useTypedSelector(state => state.todoReducer)
+    const {inputName, inputDescription, todos} = useTypedSelector(state => state.todoReducer)
     const { addTodo, changeShowModal, changeInputName, changeInputDescription} = useAction()
+
+    document.querySelector('main')?.classList.add('main_modal')
+
+    const closeModal = () => {
+        changeShowModal(false);
+        document.querySelector('main')?.classList.remove('main_modal')
+    }
 
     const closeModalAndAddTodo = () => {
         changeShowModal(false);
@@ -20,36 +27,34 @@ const Modal = () => {
         addTodo(newTodo)
         changeInputName('')
         changeInputDescription('')
+        document.querySelector('main')?.classList.remove('main_modal')
     }
 
-    if (showModal) {
-        return (
-            <div className="modal d-block">
-                <div className="modal-dialog modal-dialog-centered">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h5 className="modal-title">Add todo</h5>
-                        </div>
-                        <div className="modal-body">
-                            <TodoAddForm/>
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button"
-                                    className="btn btn-outline-success"
-                                    data-bs-dismiss="modal"
-                                    onClick={() => {changeShowModal(false)}}>Close</button>
-                            <button type="button"
-                                    className="btn btn-success"
-                                    onClick={() => {closeModalAndAddTodo()}}
-                            >Add</button>
-                        </div>
+    return (
+        <div className="modal d-block">
+            <div className="modal-dialog modal-dialog-centered">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title">Add todo</h5>
+                    </div>
+                    <div className="modal-body">
+                        <TodoAddForm/>
+                    </div>
+                    <div className="modal-footer">
+                        <button type="button"
+                                className="btn btn-outline-success"
+                                data-bs-dismiss="modal"
+                                onClick={() => {closeModal()}}>Close</button>
+                        <button type="button"
+                                className="btn btn-success"
+                                onClick={() => {closeModalAndAddTodo()}}
+                        >Add</button>
                     </div>
                 </div>
             </div>
-        );
-    } else {
-        return null;
-    }
+        </div>
+    );
+
 };
 
 export default Modal;

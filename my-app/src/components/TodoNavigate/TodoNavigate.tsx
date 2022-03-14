@@ -11,7 +11,7 @@ const TodoNavigate = () => {
     return (
         <div className="row mb-4 d-flex justify-content-center">
             <div className="col-7">
-                <nav className="navbar navbar-light bg-light">
+                <nav className="navbar navbar-light">
                     <form className="container justify-content-between">
                         <button className="btn btn-outline-secondary me-2"
                                 type="button"
