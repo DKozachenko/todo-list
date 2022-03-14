@@ -7,15 +7,30 @@ export interface Todo {
 
 export interface TodoState {
     todos: Todo[],
-    doneTodos: number,
-    notDoneTodos: number
-    limit: boolean | null
+    doneTodos: Todo[],
+    notDoneTodos: Todo[],
+    currentTodos: Todo[],
+    currentTodosName: string,
+
+    showModal: boolean,
+
+    inputName: string,
+    inputDescription: string,
+
+    searchQuery: string
 }
 
 export enum TodoActions {
     ADD_TODO ='ADD_TODO',
-    CHANGE_LIMIT = 'CHANGE_LIMIT',
-    DONE_TODO = 'DONE_LIMIT'
+    CHANGE_CURRENT_TODOS = 'CHANGE_CURRENT_TODOS',
+    CHANGE_TODO_STATUS = 'CHANGE_TODO_STATUS',
+
+    SHOW_MODAL = 'SHOW_MODAL',
+
+    CHANGE_INPUT_NAME = 'CHANGE_INPUT_NAME',
+    CHANGE_INPUT_DESCRIPTION = 'CHANGE_INPUT_DESCRIPTION',
+
+    CHANGE_SEARCH_QUERY = 'CHANGE_SEARCH_QUERY'
 }
 
 interface AddTodoAction {
@@ -23,15 +38,36 @@ interface AddTodoAction {
     payload: Todo
 }
 
-interface ChangeLimitAction {
-    type: TodoActions.CHANGE_LIMIT,
-    payload: boolean | null
-}
-
 interface DoneTodoAction {
-    type: TodoActions.DONE_TODO,
-    payload: any[]
+    type: TodoActions.CHANGE_TODO_STATUS,
+    payload: [Todo, boolean]
+}
+
+interface ChangeCurrentTodos {
+    type: TodoActions.CHANGE_CURRENT_TODOS,
+    payload: number
+}
+
+interface ShowModalAction {
+    type: TodoActions.SHOW_MODAL,
+    payload: boolean
+}
+
+interface ChangeInputName {
+    type: TodoActions.CHANGE_INPUT_NAME,
+    payload: string
+}
+
+interface ChangeInputDescription {
+    type: TodoActions.CHANGE_INPUT_DESCRIPTION,
+    payload: string
+}
+
+interface ChangeSearchQuery {
+    type: TodoActions.CHANGE_SEARCH_QUERY,
+    payload: string
 }
 
 
-export type TodoAction = AddTodoAction | ChangeLimitAction | DoneTodoAction
+export type TodoAction = AddTodoAction | DoneTodoAction | ChangeCurrentTodos | ShowModalAction
+    | ChangeInputName | ChangeInputDescription | ChangeSearchQuery

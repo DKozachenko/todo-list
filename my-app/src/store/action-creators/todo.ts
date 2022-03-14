@@ -7,15 +7,39 @@ export const addTodo = (todo: Todo) => {
     }
 }
 
-export const changeLimit = (limit: boolean | null) => {
+export const changeTodoStatus = (todo: Todo) => {
     return (dispatch: Dispatch<TodoAction>) => {
-        dispatch({type: TodoActions.CHANGE_LIMIT, payload: limit})
+        dispatch({type: TodoActions.CHANGE_TODO_STATUS, payload: [todo, !todo.isDone]})
     }
 }
 
-export const doneTodo = (todo: Todo) => {
+export const changeCurrentTodos = (code: number) => {
     return (dispatch: Dispatch<TodoAction>) => {
-        dispatch({type: TodoActions.DONE_TODO, payload: [todo, !todo.isDone]})
+        dispatch({type: TodoActions.CHANGE_CURRENT_TODOS, payload: code})
+    }
+}
+
+export const changeShowModal = (show: boolean) => {
+    return (dispatch: Dispatch<TodoAction>) => {
+        dispatch({type: TodoActions.SHOW_MODAL, payload: show})
+    }
+}
+
+export const changeInputName = (newName: string) => {
+    return (dispatch: Dispatch<TodoAction>) => {
+        dispatch({type: TodoActions.CHANGE_INPUT_NAME, payload: newName})
+    }
+}
+
+export const changeInputDescription = (newDesc: string) => {
+    return (dispatch: Dispatch<TodoAction>) => {
+        dispatch({type: TodoActions.CHANGE_INPUT_DESCRIPTION, payload: newDesc})
+    }
+}
+
+export const changeSearch = (query: string) => {
+    return (dispatch: Dispatch<TodoAction>) => {
+        dispatch({type: TodoActions.CHANGE_SEARCH_QUERY, payload: query})
     }
 }
 
