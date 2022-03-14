@@ -14,7 +14,9 @@ export interface TodoState {
     showModal: boolean,
 
     inputName: string,
-    inputDescription: string
+    inputDescription: string,
+
+    searchQuery: string
 }
 
 export enum TodoActions {
@@ -25,7 +27,9 @@ export enum TodoActions {
     SHOW_MODAL = 'SHOW_MODAL',
 
     CHANGE_INPUT_NAME = 'CHANGE_INPUT_NAME',
-    CHANGE_INPUT_DESCRIPTION = 'CHANGE_INPUT_DESCRIPTION'
+    CHANGE_INPUT_DESCRIPTION = 'CHANGE_INPUT_DESCRIPTION',
+
+    CHANGE_SEARCH_QUERY = 'CHANGE_SEARCH_QUERY'
 }
 
 interface AddTodoAction {
@@ -58,5 +62,11 @@ interface ChangeInputDescription {
     payload: string
 }
 
+interface ChangeSearchQuery {
+    type: TodoActions.CHANGE_SEARCH_QUERY,
+    payload: string
+}
 
-export type TodoAction = AddTodoAction | DoneTodoAction | ChangeCurrentTodos | ShowModalAction | ChangeInputName | ChangeInputDescription
+
+export type TodoAction = AddTodoAction | DoneTodoAction | ChangeCurrentTodos | ShowModalAction
+    | ChangeInputName | ChangeInputDescription | ChangeSearchQuery

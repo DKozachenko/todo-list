@@ -9,7 +9,9 @@ const initialState: TodoState = {
     showModal: false,
 
     inputName: '',
-    inputDescription: ''
+    inputDescription: '',
+
+    searchQuery: ''
 }
 
 export const todoReducer = (state: TodoState = initialState, action: TodoAction): TodoState => {
@@ -60,6 +62,24 @@ export const todoReducer = (state: TodoState = initialState, action: TodoAction)
             return {...state, inputName: action.payload}
         case TodoActions.CHANGE_INPUT_DESCRIPTION:
             return {...state, inputDescription: action.payload}
+        case TodoActions.CHANGE_SEARCH_QUERY:
+            let query = action.payload
+            if (!query) {
+                if (state.currentTodos === state.doneTodos) {
+                    return {...state, searchQuery: query, currentTodos: state.doneTodos}
+                }
+                if (state.currentTodos === state.notDoneTodos) {
+                    return {...state, searchQuery: query, currentTodos: state.notDoneTodos}
+                }
+
+                return {...state, searchQuery: query, currentTodos: state.todos}
+            } else {
+                let newCurrent: Todo[] = state.todos.filter((todo: Todo) => {
+                    return todo.name.toLowerCase().includes(query.toLowerCase())
+                })
+
+                return {...state, searchQuery: query, currentTodos: newCurrent}
+            }
         default:
             return state
     }

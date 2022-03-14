@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useTypedSelector} from "../../hooks/useTypedSelector";
 import {useAction} from "../../hooks/useAction";
 import TodoAddForm from "../TodoAddForm/TodoAddForm";
@@ -8,7 +8,10 @@ const Modal = () => {
     const {inputName, inputDescription, todos} = useTypedSelector(state => state.todoReducer)
     const { addTodo, changeShowModal, changeInputName, changeInputDescription} = useAction()
 
-    document.querySelector('main')?.classList.add('main_modal')
+    useEffect(() => {
+        document.querySelector('main')?.classList.add('main_modal')
+    }, [])
+
 
     const closeModal = () => {
         changeShowModal(false);

@@ -37,3 +37,9 @@ export const changeInputDescription = (newDesc: string) => {
     }
 }
 
+export const changeSearch = (query: string) => {
+    return (dispatch: Dispatch<TodoAction>) => {
+        dispatch({type: TodoActions.CHANGE_SEARCH_QUERY, payload: query})
+    }
+}
+
