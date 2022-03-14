@@ -8,7 +8,7 @@ const Search = () => {
 
     return (
         <div className="row d-flex justify-content-center">
-            <div className="col-6">
+            <div className="col-lg-6 col-12">
                 <div className="input-group mb-3">
                     <input type="text" className="form-control" placeholder="Search..."
                         value={searchQuery}
